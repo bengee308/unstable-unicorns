@@ -10,7 +10,7 @@ const joinRoom = (state, action) => {
     return {
         ...state,
         roomName: action.room.roomName,
-        playerName: action.room.playerNickname
+        playerName: action.room.playerName
     }
 }
 

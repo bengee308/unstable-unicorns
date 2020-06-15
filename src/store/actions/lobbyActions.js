@@ -10,15 +10,15 @@ export const createRoom = (room, ownProps) => {
         const p1 = roomRef.set({
             password: room.roomPassword,
             deck: getStartingDeck(),
-            playerOrder: [room.playerNickname],
+            playerOrder: [room.playerName],
             currPlayerIndex: 0,
         });
-        const p2 = roomRef.collection('players').doc(room.playerNickname).set({
+        const p2 = roomRef.collection('players').doc(room.playerName).set({
             hand: [],
             stable: []
         });
         Promise.all([p1, p2]).then(() => {
-            setRoomCookies(room.playerName, room.roomName);
+            setRoomCookies(room.playerName);
             dispatch({type: actions.JOIN_ROOM, room});
             ownProps.history.push(`/room/${room.roomName}`);
         });
@@ -33,11 +33,10 @@ export const joinRoom = (room, ownProps) => {
         docRef.get().then((doc) => {
             if (doc.exists) {
                 if (room.roomPassword === doc.data().password) {
-                    debugger;
                     docRef.update({
-                        playerOrder: firestore.FieldValue.arrayUnion(room.playerNickname)
+                        playerOrder: firestore.FieldValue.arrayUnion(room.playerName)
                     });
-                    const playerRef = docRef.collection('players').doc(room.playerNickname);
+                    const playerRef = docRef.collection('players').doc(room.playerName);
                     playerRef.get().then((playerDoc) => {
                         // initialize hand and stable to empty if the player doesn't exist already
                         if (!playerDoc.exists) {
@@ -46,6 +45,7 @@ export const joinRoom = (room, ownProps) => {
                                 stable: []
                             });
                         }
+                        setRoomCookies(room.playerName);
                         dispatch({type: actions.JOIN_ROOM, room});
                         ownProps.history.push(`/room/${room.roomName}`);
                     })
@@ -57,11 +57,9 @@ export const joinRoom = (room, ownProps) => {
                 alert("room doesn't exist")
             }
         });
-        //TODO: add .catch?
     }
 }
 
-const setRoomCookies = (playerName, roomName) => {
+const setRoomCookies = (playerName) => {
     Cookies.set('playerName', playerName);
-    Cookies.set('roomName', roomName);
 }

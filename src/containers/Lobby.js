@@ -3,15 +3,15 @@ import { connect } from 'react-redux';
 import { createRoom, joinRoom } from '../store/actions/lobbyActions';
 class Lobby extends Component{
     state = {
-        playerNickname: "",
+        playerName: "",
         roomName: "",
         roomPassword: ""
     }
 
-    updatePlayerNickname = (e) => {
+    updatePlayerName = (e) => {
         this.setState({
             ...this.state,
-            playerNickname: e.target.value
+            playerName: e.target.value
         })
     }
 
@@ -43,22 +43,17 @@ class Lobby extends Component{
                 <h1>Unstable Unicorns</h1>
                 <form>
                     <label htmlFor="nickname-input">Nickname: </label>
-                    <input id="nickname-input" onChange={this.updatePlayerNickname} value={this.state.playerNickname} />
+                    <input id="nickname-input" onChange={this.updatePlayerName} value={this.state.playerName} />
                     <label htmlFor="room-input">Room: </label>
                     <input id="room-input" onChange={this.updateRoomName} value={this.state.roomName}/>
                     <label htmlFor="password-input">Password: </label>
                     <input id="password-input" onChange={this.updateRoomPassword} value={this.state.roomPassword}/>  
                 </form>
+                <br/>
                 <button onClick={this.handleJoinRoomClicked}>Enter Room</button>
                 <button onClick={this.handleCreateRoomClicked}>Create Room</button>
             </div>
         )
-    }
-}
-
-const mapStateToProps = (state) => {
-    return {
-
     }
 }
 
@@ -69,4 +64,4 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Lobby);
+export default connect(null, mapDispatchToProps)(Lobby);

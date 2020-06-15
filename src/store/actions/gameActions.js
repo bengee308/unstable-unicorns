@@ -7,7 +7,6 @@ export const drawCard = () => {
         const playerStableRef = roomRef.collection('players').doc(playerName);
         roomRef.get().then(function(doc) {
             if (doc.exists) {
-                debugger;
                 const drawnCard = doc.data().deck[0];
                 playerStableRef.update({
                     stable: firestore.FieldValue.arrayUnion(drawnCard)
