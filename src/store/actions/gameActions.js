@@ -7,8 +7,8 @@ export const drawCard = () => {
         const playerStableRef = roomRef.collection('players').doc(playerName);
         roomRef.get().then(function(doc) {
             if (doc.exists) {
+                debugger;
                 const drawnCard = doc.data().deck[0];
-                //TODO: switch from stable to hand
                 playerStableRef.update({
                     stable: firestore.FieldValue.arrayUnion(drawnCard)
                 });
@@ -16,10 +16,7 @@ export const drawCard = () => {
                 roomRef.update({
                     deck: firestore.FieldValue.arrayRemove(drawnCard)
                 })
-            } else {
-                // TODO: handle this error case 
             }
-
         });
     }
 }

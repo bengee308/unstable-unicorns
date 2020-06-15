@@ -2,9 +2,8 @@ import * as actionTypes from '../actions/actionTypes';
 import { List } from 'immutable';
 
 const initialState = {
-    // TODO: get rid of default roomName and playerName - load these based on cookies instead
-    roomName: "baby",
-    playerName: "bear"
+    roomName: "",
+    playerName: ""
 }
 
 const joinRoom = (state, action) => {

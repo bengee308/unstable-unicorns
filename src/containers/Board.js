@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, useEffect } from "react";
 import * as actions from '../store/actions/actionTypes'
 import { Deck } from '../components/Deck'
 import { Card } from '../components/Card'
@@ -12,16 +12,6 @@ const Board = (props) => {
     const roomName = useSelector(state => state.game.roomName);
     const playerName = useSelector(state => state.game.playerName);
     const dispatch = useDispatch();
-    if (!roomName || !playerName) {
-        // Try to read roomName and playerName from cookies
-        // const roomNameFromCookie = Cookies.get('roomName');
-        // const playerNameFromCookie = Cookies.get('playerName');
-        // if ( roomNameFromCookie && playerNameFromCookie ) {
-        //     dispatch({roommName: roomNameFromCookie, 
-        //         playerName: playerNameFromCookie});
-        //     return;
-        // }
-    }
     useFirestoreConnect([
         {
             collection: 'rooms',
@@ -42,9 +32,8 @@ const Board = (props) => {
     const currentPlayerName = useSelector(state => state.game.playerName);
     const stables = []
     let isCurrentPlayerTurn = false;
-    console.log(useSelector(state => state));
-    //TODO: remove the stupid currPlayerIndex === 0
-    if (players && room && room.playerOrder && (room.currPlayerIndex || room.currPlayerIndex === 0)) {
+    if (players && room && room.playerOrder && Object.keys(players).length === room.playerOrder.length 
+        && (Number.isInteger(room.currPlayerIndex))) {
         for (const player of room.playerOrder) {
             const isActive = room.playerOrder[room.currPlayerIndex] === player;
             if (player === currentPlayerName && isActive) {
