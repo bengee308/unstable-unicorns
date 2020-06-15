@@ -1,4 +1,11 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Online multiplayer implementation of [Unstable Unicorns](https://www.unstableunicorns.com/) card game using React, Redux, and Firestore. 
+
+Current functionality:
+* Create a game room and join an existing game room
+* Each player in a game room sees a consistent and real-time view of the total game state
+* On their turn, a player can draw a card and end their turn. The next player can then make his move.
+
+Check back here for more updates coming soon!
 
 ## Available Scripts
 
