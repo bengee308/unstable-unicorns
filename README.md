@@ -1,3 +1,5 @@
+## Unstable Unicorns Online
+
 Online multiplayer implementation of [Unstable Unicorns](https://www.unstableunicorns.com/) card game using React, Redux, and Firestore. 
 
 Current functionality:
